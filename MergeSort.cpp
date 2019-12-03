@@ -1,36 +1,37 @@
-//
-// Created by Steven on 12/2/2019.
-//
+//Code adapted from project 3
 #include "MergeSort.h"
+using namespace std;
 
-void MergeSort::mergeSortedLists(vector<int>& a, vector<int>& tmp, int leftPos, int rightPos, int rightEnd) {
+template <typename Type>
+void MergeSort::mergeSortedLists(vector<Type>& dataVM, vector<Type>& tmp, int leftPos, int rightPos, int rightEnd) {
     int leftEnd = rightPos - 1;
     int tempPos = leftPos;
     int numElements = rightEnd - leftPos + 1;
 
     while (leftPos <= leftEnd && rightPos <= rightEnd) {
-        if (a[leftPos] <= a[rightPos]) {
-            tmp[tempPos++] = a[leftPos++];
+        if (dataVM[leftPos] <= dataVM[rightPos]) {
+            tmp[tempPos++] = dataVM[leftPos++];
         } else {
-            tmp[tempPos++] = a[rightPos++];
+            tmp[tempPos++] = dataVM[rightPos++];
         }
     }
     while (leftPos <= leftEnd) {
-        tmp[tempPos++] = a[leftPos++];
+        tmp[tempPos++] = dataVM[leftPos++];
     }
     while (rightPos <= rightEnd) {
-        tmp[tempPos++] = a[rightPos++];
+        tmp[tempPos++] = dataVM[rightPos++];
     }
     for (int i = 0; i < numElements; i++, --rightEnd) {
-        a[rightEnd] = tmp[rightEnd];
+        dataVM[rightEnd] = tmp[rightEnd];
     }
 }
 
-void MergeSort::mergeSort(vector<int>& a, vector<int>& tmp, int left, int right) {
+template <typename Type>
+void MergeSort::mergeSort(vector<Type>& dataVM, vector<Type>& tmp, int left, int right) {
     if (left < right) {
         int center = ( left + right ) / 2;
-        mergeSort(a, tmp, left, center);
-        mergeSort(a, tmp, center + 1, right);
-        mergeSortedLists(a, tmp, left, center + 1, right);
+        mergeSort(dataVM, tmp, left, center);
+        mergeSort(dataVM, tmp, center + 1, right);
+        mergeSortedLists(dataVM, tmp, left, center + 1, right);
     }
 }

@@ -7,12 +7,14 @@
 
 #include <iostream>
 using namespace std;
+
 class Data{
 public:
     Data();
     Data(string name, string state, int code, int value);
     friend const ostream& operator<<( ostream& os, Data d);
     bool operator<(const Data& rhs) const;
+    bool operator<=(const Data& rhs) const;
     bool operator>(const Data &rhs) const;
 private:
     string nameP;

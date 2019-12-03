@@ -24,6 +24,10 @@ bool Data::operator<(const Data &rhs) const {
     return this->codeP < rhs.codeP;
 }
 
+bool Data::operator<=(const Data &rhs) const {
+    return this->codeP <= rhs.codeP;
+}
+
 bool Data::operator>(const Data &rhs) const {
-    return !(*this < rhs);
+    return this->codeP > rhs.codeP;
 }

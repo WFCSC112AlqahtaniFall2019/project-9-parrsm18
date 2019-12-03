@@ -1,11 +1,11 @@
-//
-// Created by Steven on 12/2/2019.
-//
+//Code adapted from selection sort algorithm on Zybooks
 
+#include <vector>
 #include "SelectionSort.h"
+using namespace std;
 
 template<typename Type>
-void SelectionSort::selectionSort(Type dataVS) {
+void SelectionSort::selectionSort(vector<Type> &dataVS) {
     int smallestData;
     Type tempSelectionData;      // Temporary variable for swap
 

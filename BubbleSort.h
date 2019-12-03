@@ -10,9 +10,7 @@ using namespace std;
 class BubbleSort{
 public:
     template <typename Type>
-    void bubbleSort(Type dataVB);
-private:
-
+    void bubbleSort(vector<Type> &dataVB);
 };
 
 
