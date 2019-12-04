@@ -3,13 +3,10 @@
 #include <fstream>
 #include <ctime>
 #include "Data.h"
-#include "BubbleSort.h"
-#include "SelectionSort.h"
-#include "QuickSort.h"
-#include "MergeSort.h"
 
 using namespace std;
 
+// Template and function declarations
 template <typename Type>
 void bubbleSort(vector<Type> &dataVB);
 template <typename Type>
@@ -24,12 +21,14 @@ template <typename Type>
 void mergeSort(vector<Type>& dataVM, vector<Type>& tmp, int left, int right);
 
 int main() {
+    //Declare vectors for data
     vector<Data> dataV;
     vector<Data> dataV_B;
     vector<Data> dataV_S;
     vector<Data> dataV_Q;
     vector<Data> dataV_M;
 
+    //Declare vectors for integers
     vector<int> intV;
     vector<int> intV_B;
     vector<int> intV_S;
@@ -39,10 +38,6 @@ int main() {
     // Seed random number generator
     srand(time(0));
 
-    BubbleSort b;
-    SelectionSort s;
-    QuickSort q;
-    MergeSort m;
 
     //Initializes input and output streams
     ifstream in;
@@ -82,17 +77,20 @@ int main() {
         dataV.push_back(videoGame);
     }
 
-    for (int j = 0; j < 100 /*dataV.size()*/; j++){
+    //Copies the contents of dataV into the four other vectors
+    for (int j = 0; j < dataV.size(); j++){
         dataV_B.push_back(dataV.at(j));
         dataV_S.push_back(dataV.at(j));
         dataV_Q.push_back(dataV.at(j));
         dataV_M.push_back(dataV.at(j));
     }
 
-    for (int k = 0; k < 100; k++){
+    //Populates intV with random numbers
+    for (int k = 0; k < dataV.size(); k++){
         intV.push_back((rand() % 100) + 1);
     }
 
+    //Copies the contents of intV into the four other vectors
     for (int i = 0; i < intV.size(); i++){
         intV_B.push_back(intV.at(i));
         intV_S.push_back(intV.at(i));
@@ -101,49 +99,49 @@ int main() {
     }
 
 
-    cout << "Bubble sorting data objects" << endl;
+    cout << "Bubble sorting data objects..." << endl;
     clock_t start_bubbleSort_data = clock();
     bubbleSort(dataV_B);
     clock_t end_bubbleSort_data = clock();
 
-    cout << "Selection sorting data objects" << endl;
+    cout << "Selection sorting data objects..." << endl;
     clock_t start_selectionSort_data = clock();
     selectionSort(dataV_S);
     clock_t end_selectionSort_data = clock();
 
-    cout << "Quick sorting data objects" << endl;
+    cout << "Quick sorting data objects..." << endl;
     clock_t start_quickSort_data = clock();
     quickSort(dataV_Q, 0, dataV_Q.size() - 1);
     clock_t end_quickSort_data = clock();
 
-    cout << "Merge sorting data objects" << endl;
+    cout << "Merge sorting data objects..." << endl;
     clock_t start_mergeSort_data = clock();
     vector<Data> tempData(dataV_M.size());
     mergeSort(dataV_M, tempData, 0, dataV_M.size()-1);
     clock_t end_mergeSort_data = clock();
 
-    cout << "Bubble sorting integers" << endl;
+    cout << "Bubble sorting integers..." << endl;
     clock_t start_bubbleSort_int = clock();
     bubbleSort(intV_B);
     clock_t end_bubbleSort_int = clock();
 
-    cout << "Selection sorting integers" << endl;
+    cout << "Selection sorting integers..." << endl;
     clock_t start_selectionSort_int = clock();
     selectionSort(intV_S);
     clock_t end_selectionSort_int = clock();
 
-    cout << "Quick sorting integers" << endl;
+    cout << "Quick sorting integers..." << endl;
     clock_t start_quickSort_int = clock();
     quickSort(intV_Q, 0, intV_Q.size() - 1);
     clock_t end_quickSort_int = clock();
 
-    cout << "Merge sorting integers" << endl;
+    cout << "Merge sorting integers..." << endl;
     clock_t start_mergeSort_int = clock();
     vector<int> tempInts(intV_M.size());
     mergeSort(intV_M, tempInts, 0, intV_M.size()-1);
     clock_t end_mergeSort_int = clock();
 
-
+    //Times results
     double elapsed_bubbleSort_data = double(end_bubbleSort_data - start_bubbleSort_data) / CLOCKS_PER_SEC;
     double elapsed_selectionSort_data = double(end_selectionSort_data - start_selectionSort_data) / CLOCKS_PER_SEC;
     double elapsed_quickSort_data = double(end_quickSort_data - start_quickSort_data) / CLOCKS_PER_SEC;
@@ -153,26 +151,22 @@ int main() {
     double elapsed_quickSort_int = double(end_quickSort_int - start_quickSort_int) / CLOCKS_PER_SEC;
     double elapsed_mergeSort_int = double(end_mergeSort_int - start_mergeSort_int) / CLOCKS_PER_SEC;
 
+    //Outputs times
     cout << "Bubble Sort Data: " << elapsed_bubbleSort_data << "s" << endl;
     cout << "Selection Sort Data: " << elapsed_selectionSort_data << "s" << endl;
     cout << "Quick Sort Data: " << elapsed_quickSort_data << "s" << endl;
-    cout << "Merge Sort Data: " << elapsed_mergeSort_data << "s" << endl;
+    cout << "Merge Sort Data: " << elapsed_mergeSort_data << "s" << endl << endl;
     cout << "Bubble Sort Ints: " << elapsed_bubbleSort_int << "s" << endl;
     cout << "Selection Sort Ints: " << elapsed_selectionSort_int << "s" << endl;
     cout << "Quick Sort Ints: " << elapsed_quickSort_int << "s" << endl;
     cout << "Merge Sort Ints: " << elapsed_mergeSort_int << "s" << endl;
 
-    for (int i = 0; i < 50; i++){
-        cout << dataV_B.at(i);
-        cout << dataV_S.at(i);
-        cout << dataV_Q.at(i);
-        cout << dataV_M.at(i);
-    }
     in.close();
 
     return 0;
 }
 
+// Bubble sort function
 template <typename Type>
 void bubbleSort(vector<Type> &dataVB){
     Type tempData;
@@ -187,6 +181,7 @@ void bubbleSort(vector<Type> &dataVB){
     }
 }
 
+//Selection sort function - Adapted from code given in Zybooks
 template<typename Type>
 void selectionSort(vector<Type> &dataVS) {
     int smallestData;
@@ -209,22 +204,20 @@ void selectionSort(vector<Type> &dataVS) {
     }
 }
 
+// Quick sort function - Adapted from code given in Zybooks
 template<typename Type>
 void quickSort(vector<Type> &dataVQ, int i, int k) {
     int j;
 
-    /* Base case: If there are 1 or zero elements to sort,
-     partition is already sorted */
+    // If there are 1 or zero elements to sort, partition is already sorted
     if (i >= k) {
         return;
     }
 
-    /* Partition the data within the array. Value j returned
-     from partitioning is location of last element in low partition. */
+    // Partition the data within the array. Value j returned from partitioning is location of last element in low partition.
     j = Partition(dataVQ, i, k);
 
-    /* Recursively sort low partition (i to j) and
-     high partition (j + 1 to k) */
+    // Recursively sort low partition (i to j) and high partition (j + 1 to k)
     quickSort(dataVQ, i, j);
     quickSort(dataVQ, j + 1, k);
 }
@@ -238,7 +231,7 @@ int Partition(vector<Type> &dataVQP, int i, int k) {
     Type temp;
     bool done;
 
-    /* Pick middle element as pivot */
+    // Pick middle element as pivot
     midpoint = i + (k - i) / 2;
     pivot = dataVQP.at(midpoint); //Out of range occurs here
 
@@ -248,24 +241,22 @@ int Partition(vector<Type> &dataVQP, int i, int k) {
 
     while (!done) {
 
-        /* Increment l while numbers[l] < pivot */
+        // Increment l while numbers at l < pivot
         while (dataVQP.at(l) < pivot) {
             ++l;
         }
 
-        /* Decrement h while pivot < numbers[h] */
+        // Decrement h while pivot < numbers at h
         while (pivot < dataVQP.at(h)) {
             --h;
         }
 
-        /* If there are zero or one elements remaining,
-         all numbers are partitioned. Return h */
+        // If there are zero or one elements remaining, all numbers are partitioned. Return h
         if (l >= h) {
             done = true;
         }
         else {
-            /* Swap numbers[l] and numbers[h],
-             update l and h */
+            // Swap numbers at l and numbers at h, update l and h
             temp = dataVQP.at(l);
             dataVQP.at(l) = dataVQP.at(h);
             dataVQP.at(h) = temp;
@@ -277,6 +268,7 @@ int Partition(vector<Type> &dataVQP, int i, int k) {
     return h;
 }
 
+//Merge sort function - Adapted from code given in project 3
 template <typename Type>
 void mergeSortedLists(vector<Type>& dataVM, vector<Type>& tmp, int leftPos, int rightPos, int rightEnd) {
     int leftEnd = rightPos - 1;
@@ -284,20 +276,20 @@ void mergeSortedLists(vector<Type>& dataVM, vector<Type>& tmp, int leftPos, int 
     int numElements = rightEnd - leftPos + 1;
 
     while (leftPos <= leftEnd && rightPos <= rightEnd) {
-        if (dataVM[leftPos] <= dataVM[rightPos]) {
-            tmp[tempPos++] = dataVM[leftPos++];
+        if (dataVM.at(leftPos) <= dataVM.at(rightPos)) {
+            tmp.at(tempPos++) = dataVM.at(leftPos++);
         } else {
-            tmp[tempPos++] = dataVM[rightPos++];
+            tmp.at(tempPos++) = dataVM.at(rightPos++);
         }
     }
     while (leftPos <= leftEnd) {
-        tmp[tempPos++] = dataVM[leftPos++];
+        tmp.at(tempPos++) = dataVM.at(leftPos++);
     }
     while (rightPos <= rightEnd) {
-        tmp[tempPos++] = dataVM[rightPos++];
+        tmp.at(tempPos++) = dataVM.at(rightPos++);
     }
     for (int i = 0; i < numElements; i++, --rightEnd) {
-        dataVM[rightEnd] = tmp[rightEnd];
+        dataVM.at(rightEnd) = tmp.at(rightEnd);
     }
 }
 
