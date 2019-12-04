@@ -78,7 +78,7 @@ int main() {
         dataV.push_back(videoGame);
     }
 
-    for (int j = 0; j < 10000 /*dataV.size()*/; j++){
+    for (int j = 0; j < 10000/*dataV.size()*/; j++){
         dataV_B.push_back(dataV.at(j));
         dataV_S.push_back(dataV.at(j));
         dataV_Q.push_back(dataV.at(j));
