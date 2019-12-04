@@ -39,6 +39,7 @@ int main() {
     srand(time(0));
 
 
+
     //Initializes input and output streams
     ifstream in;
 
@@ -77,20 +78,17 @@ int main() {
         dataV.push_back(videoGame);
     }
 
-    //Copies the contents of dataV into the four other vectors
-    for (int j = 0; j < dataV.size(); j++){
+    for (int j = 0; j < 10000 /*dataV.size()*/; j++){
         dataV_B.push_back(dataV.at(j));
         dataV_S.push_back(dataV.at(j));
         dataV_Q.push_back(dataV.at(j));
         dataV_M.push_back(dataV.at(j));
     }
 
-    //Populates intV with random numbers
-    for (int k = 0; k < dataV.size(); k++){
+    for (int k = 0; k < 10000/*dataV.size()*/; k++){
         intV.push_back((rand() % 100) + 1);
     }
 
-    //Copies the contents of intV into the four other vectors
     for (int i = 0; i < intV.size(); i++){
         intV_B.push_back(intV.at(i));
         intV_S.push_back(intV.at(i));
@@ -135,13 +133,13 @@ int main() {
     quickSort(intV_Q, 0, intV_Q.size() - 1);
     clock_t end_quickSort_int = clock();
 
-    cout << "Merge sorting integers..." << endl;
+    cout << "Merge sorting integers..." << endl << endl;
     clock_t start_mergeSort_int = clock();
     vector<int> tempInts(intV_M.size());
     mergeSort(intV_M, tempInts, 0, intV_M.size()-1);
     clock_t end_mergeSort_int = clock();
 
-    //Times results
+    //Clocking sort
     double elapsed_bubbleSort_data = double(end_bubbleSort_data - start_bubbleSort_data) / CLOCKS_PER_SEC;
     double elapsed_selectionSort_data = double(end_selectionSort_data - start_selectionSort_data) / CLOCKS_PER_SEC;
     double elapsed_quickSort_data = double(end_quickSort_data - start_quickSort_data) / CLOCKS_PER_SEC;
@@ -151,11 +149,11 @@ int main() {
     double elapsed_quickSort_int = double(end_quickSort_int - start_quickSort_int) / CLOCKS_PER_SEC;
     double elapsed_mergeSort_int = double(end_mergeSort_int - start_mergeSort_int) / CLOCKS_PER_SEC;
 
-    //Outputs times
+    //output sorting times
     cout << "Bubble Sort Data: " << elapsed_bubbleSort_data << "s" << endl;
     cout << "Selection Sort Data: " << elapsed_selectionSort_data << "s" << endl;
     cout << "Quick Sort Data: " << elapsed_quickSort_data << "s" << endl;
-    cout << "Merge Sort Data: " << elapsed_mergeSort_data << "s" << endl << endl;
+    cout << "Merge Sort Data: " << elapsed_mergeSort_data << "s" << endl;
     cout << "Bubble Sort Ints: " << elapsed_bubbleSort_int << "s" << endl;
     cout << "Selection Sort Ints: " << elapsed_selectionSort_int << "s" << endl;
     cout << "Quick Sort Ints: " << elapsed_quickSort_int << "s" << endl;
@@ -185,7 +183,7 @@ void bubbleSort(vector<Type> &dataVB){
 template<typename Type>
 void selectionSort(vector<Type> &dataVS) {
     int smallestData;
-    Type tempSelectionData;      // Temporary variable for swap
+    Type tempSelectionData; // Temporary variable for swap
 
     for (int i = 0; i < dataVS.size() - 1; ++i) {
 
@@ -196,8 +194,7 @@ void selectionSort(vector<Type> &dataVS) {
                 smallestData = j;
             }
         }
-
-        // Swap numbers[i] and numbers[indexSmallest]
+        // Swap numbers.at(i) and numbers.at(smallestData])
         tempSelectionData = dataVS.at(i);
         dataVS.at(i) = dataVS.at(smallestData);
         dataVS.at(smallestData) = tempSelectionData;
@@ -209,7 +206,7 @@ template<typename Type>
 void quickSort(vector<Type> &dataVQ, int i, int k) {
     int j;
 
-    // If there are 1 or zero elements to sort, partition is already sorted
+    // Base case: If there are 1 or zero elements to sort, partition is already sorted
     if (i >= k) {
         return;
     }
@@ -241,12 +238,12 @@ int Partition(vector<Type> &dataVQP, int i, int k) {
 
     while (!done) {
 
-        // Increment l while numbers at l < pivot
+        // Increment l while numbers.at(l) < pivot
         while (dataVQP.at(l) < pivot) {
             ++l;
         }
 
-        // Decrement h while pivot < numbers at h
+        // Decrement h while pivot < numbers.at(h)
         while (pivot < dataVQP.at(h)) {
             --h;
         }
@@ -256,7 +253,7 @@ int Partition(vector<Type> &dataVQP, int i, int k) {
             done = true;
         }
         else {
-            // Swap numbers at l and numbers at h, update l and h
+            // Swap numbers.at(l) and numbers.at(h), update l and h
             temp = dataVQP.at(l);
             dataVQP.at(l) = dataVQP.at(h);
             dataVQP.at(h) = temp;
@@ -276,20 +273,20 @@ void mergeSortedLists(vector<Type>& dataVM, vector<Type>& tmp, int leftPos, int 
     int numElements = rightEnd - leftPos + 1;
 
     while (leftPos <= leftEnd && rightPos <= rightEnd) {
-        if (dataVM.at(leftPos) <= dataVM.at(rightPos)) {
-            tmp.at(tempPos++) = dataVM.at(leftPos++);
+        if (dataVM[leftPos] <= dataVM[rightPos]) {
+            tmp[tempPos++] = dataVM[leftPos++];
         } else {
-            tmp.at(tempPos++) = dataVM.at(rightPos++);
+            tmp[tempPos++] = dataVM[rightPos++];
         }
     }
     while (leftPos <= leftEnd) {
-        tmp.at(tempPos++) = dataVM.at(leftPos++);
+        tmp[tempPos++] = dataVM[leftPos++];
     }
     while (rightPos <= rightEnd) {
-        tmp.at(tempPos++) = dataVM.at(rightPos++);
+        tmp[tempPos++] = dataVM[rightPos++];
     }
     for (int i = 0; i < numElements; i++, --rightEnd) {
-        dataVM.at(rightEnd) = tmp.at(rightEnd);
+        dataVM[rightEnd] = tmp[rightEnd];
     }
 }
 
