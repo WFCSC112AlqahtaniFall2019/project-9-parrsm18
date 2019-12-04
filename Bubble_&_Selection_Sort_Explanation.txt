@@ -1,0 +1,16 @@
+Bubble sort is one of the least efficient sorting algorithms with a best case time
+complexity of O(n), average time complexity of O(n^2), and worst case time complexity
+of O(n^2). Bubble sort works by iterating through an unsorted list and swapping
+adjacent elements using nested loops. The algorithm checks every pair of elements 
+until the end of the list. The algorithm must iterate through the list n times in 
+order to sort completely.
+Selection sort is also one of the least efficient algorithms with a best case time
+complexity of O(n^2), average time complexity of O(n^2), and worst case time
+complexity of O(n^2). Selection sort works by separating an unsorted list into two
+halves, a sorted half and an unsorted half. The algorithm by setting the minimum location
+to the first element in the list. It then compares every element in the list to the
+element at the minimum location. After the list has been checked the minimum element 
+in the list is swapped with the element at the minimum location. The first element is
+now considered sorted and the minimum location moves to the second element. This process 
+is repeated until the end of the list is reached. The algorithm must iterate through 
+the unsorted list n times using nested loops.
